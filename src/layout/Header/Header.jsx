@@ -1,17 +1,22 @@
-import classNames from 'classnames';
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { Filter } from '../../components';
-import { menu } from '../../helpers/menu';
-import styles from './Header.module.css';
+import classNames from "classnames";
+import React from "react";
+import { NavLink } from "react-router-dom";
+import { Filter } from "../../components";
+import { menu } from "../../helpers/menu";
+import styles from "./Header.module.css";
+import { useCurrentPage } from "../../hooks/useCurrentPage";
+import { useModal } from "../../hooks/useModal";
 
 export const Header = () => {
+  const { isRootPage } = useCurrentPage();
+  const { isOpen, setIsOpen } = useModal();
+  console.log(isOpen);
   return (
     <header className={styles.header}>
-      <div className={classNames('container', styles.headerContainer)}>
+      <div className={classNames("container", styles.headerContainer)}>
         <p className={styles.logo}>Logo.</p>
 
-        <Filter />
+        {isRootPage && <Filter />}
 
         <nav className={styles.navbar}>
           <ul className={styles.navList}>
@@ -31,6 +36,7 @@ export const Header = () => {
           </ul>
         </nav>
       </div>
+      {/* <button onClick={() => setIsOpen(!isOpen)}>CLIKK</button> */}
     </header>
   );
 };
